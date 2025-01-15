@@ -1,0 +1,32 @@
+{
+  "name": "hashnode-post-maker",
+  "version": "1.0.0",
+  "description": "Generate cool blog posts using GPT & publish to HashNode using its GQL API.",
+  "main": "app",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surkanfuren/hashnode-post-maker.git"
+  },
+  "keywords": [
+    "hashnode",
+    "gpt",
+    "llm",
+    "post",
+    "gql",
+    "graphql",
+    "api",
+    "generative",
+    "ai",
+    "hashnode",
+    "api"
+  ],
+  "author": "Furkan Suren",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/surkanfuren/hashnode-post-maker/issues"
+  },
+  "homepage": "https://github.com/surkanfuren/hashnode-post-maker#readme"
+}
