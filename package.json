@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Generate cool blog posts using GPT & publish to HashNode using its GQL API.",
   "main": "app",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
   },
   "repository": {
     "type": "git",
@@ -28,5 +30,9 @@
   "bugs": {
     "url": "https://github.com/surkanfuren/hashnode-post-maker/issues"
   },
-  "homepage": "https://github.com/surkanfuren/hashnode-post-maker#readme"
+  "homepage": "https://github.com/surkanfuren/hashnode-post-maker#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "openai": "^4.78.1"
+  }
 }
