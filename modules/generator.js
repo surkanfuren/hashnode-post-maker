@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import dotenv from "dotenv";
+import chalk from "chalk";
 import system_prompt from "../prompt.js";
 import { searchImage } from "./image-search.js";
 
@@ -16,12 +17,12 @@ async function generateContent() {
 
     const post = JSON.parse(completion.choices[0].message.content);
     if (post) {
-      console.log("Content created successfully");
+      console.log(chalk.green.bold("✓ Content generated successfully"));
     }
     const query = `${post.artwork} by ${post.artist}`;
     const image = await searchImage(query);
     if (image) {
-      console.log(`Image found: ${image}`);
+      console.log(chalk.blue(`🖼  Image found: ${chalk.underline(image)}`));
     }
 
     return {

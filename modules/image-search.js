@@ -1,5 +1,6 @@
 import axios from "axios";
 import dotenv from "dotenv";
+import chalk from "chalk";
 
 dotenv.config();
 
@@ -22,13 +23,13 @@ async function searchImage(query) {
   };
 
   try {
-    console.log(`Searching image for: ${query}`);
+    console.log(chalk.yellow(`🔍 Searching image for: ${chalk.italic(query)}`));
     const response = await axios.get(url, { params });
     return response.data.items[0].link;
   } catch (error) {
     console.error(
-      "Error fetching image:",
-      error.response?.data || error.message
+      chalk.red.bold("✖ Error fetching image:"),
+      chalk.red(error.response?.data || error.message)
     );
     return null;
   }

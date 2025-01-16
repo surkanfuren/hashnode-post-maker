@@ -1,6 +1,7 @@
 import axios from "axios";
 import dotenv from "dotenv";
 import { generateContent } from "./generator.js";
+import chalk from "chalk";
 
 dotenv.config();
 
@@ -22,7 +23,7 @@ async function publishContent() {
     const { title, subtitle, contentMarkdown, image } = await generateContent();
 
     if (title && subtitle && contentMarkdown && image) {
-      console.log("Publishing content...");
+      console.log(chalk.cyan("📝 Publishing content..."));
     }
 
     const publishPostInput = {
@@ -54,26 +55,37 @@ async function publishContent() {
       const error = response.data.errors[0];
       if (error.extensions) {
         console.error(
-          `GraphQL Error (${error.extensions.code}): ${error.message}`
+          chalk.red.bold(
+            `✖ GraphQL Error (${error.extensions.code}): ${error.message}`
+          )
         );
       } else {
-        console.error(`GraphQL Error: ${error.message}`);
+        console.error(chalk.red.bold(`✖ GraphQL Error: ${error.message}`));
       }
       return;
     }
 
     if (response.data.data?.publishPost?.post) {
       console.log(
-        `Post published successfully at: ${response.data.data.publishPost.post.url}`
+        chalk.green.bold(
+          `✓ Post published successfully at: ${chalk.underline(
+            response.data.data.publishPost.post.url
+          )}`
+        )
       );
     } else {
       console.warn(
-        "Post published but received unexpected response format:",
+        chalk.yellow(
+          "⚠ Post published but received unexpected response format:"
+        ),
         response.data
       );
     }
   } catch (error) {
-    console.error("Error publishing content:", error);
+    console.error(
+      chalk.red.bold("✖ Error publishing content:"),
+      chalk.red(error)
+    );
   }
 }
 
