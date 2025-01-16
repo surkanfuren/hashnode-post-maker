@@ -5,7 +5,7 @@ import { generateContent } from "./generator.js";
 dotenv.config();
 
 const token = process.env.HASHNODE_ACCESS_TOKEN;
-const publicationId = process.env.PUBLICATION_ID;
+const publicationId = process.env.HASHNODE_PUBLICATION_ID;
 
 const query = `
   mutation PublishPost($input: PublishPostInput!) {
@@ -19,7 +19,11 @@ const query = `
 
 async function publishContent() {
   try {
-    const { title, subtitle, contentMarkdown } = await generateContent();
+    const { title, subtitle, contentMarkdown, image } = await generateContent();
+
+    if (title && subtitle && contentMarkdown && image) {
+      console.log("Publishing content...");
+    }
 
     const publishPostInput = {
       publicationId: publicationId,
@@ -27,7 +31,7 @@ async function publishContent() {
       subtitle: subtitle,
       contentMarkdown: contentMarkdown,
       coverImageOptions: {
-        coverImageURL: imageURL, // FETCH IMAGE WITH GOOGLE API
+        coverImageURL: image,
       },
     };
 
