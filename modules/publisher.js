@@ -19,79 +19,94 @@ const query = `
 `;
 
 async function publishContent() {
-	try {
-		const { title, subtitle, contentMarkdown, image, artist, artwork } =
-			await generateContent();
+  try {
+    const {
+      title,
+      subtitle,
+      contentMarkdown,
+      image,
+      artist,
+      artwork,
+      artistSlug,
+      artworkSlug,
+    } = await generateContent();
 
-		if (title && subtitle && contentMarkdown && image) {
-			console.log(chalk.cyan("📝 Publishing content..."));
-		}
+    console.log(`${artist}: ${artistSlug}`);
+    console.log(`${artwork}: ${artworkSlug}`);
 
-		const publishPostInput = {
-			publicationId: publicationId,
-			title: title,
-			subtitle: subtitle,
-			contentMarkdown: contentMarkdown,
-			coverImageOptions: {
-				coverImageURL: image,
-			},
-		};
+    if (title && subtitle && contentMarkdown && image) {
+      console.log(chalk.cyan("📝 Publishing content..."));
+    }
 
-		const response = await axios.post(
-			"https://gql.hashnode.com/",
-			{
-				query: query,
-				variables: {
-					input: publishPostInput,
-				},
-			},
-			{
-				headers: {
-					Authorization: token,
-				},
-			}
-		);
+    const publishPostInput = {
+      publicationId: publicationId,
+      title: title,
+      subtitle: subtitle,
+      contentMarkdown: contentMarkdown,
+      coverImageOptions: {
+        coverImageURL: image,
+      },
+      tags: [
+        {
+          name: artist,
+          slug: artistSlug,
+        },
+      ],
+    };
 
-		if (response.data.errors) {
-			const error = response.data.errors[0];
-			if (error.extensions) {
-				console.error(
-					chalk.red.bold(
-						`✖ GraphQL Error (${error.extensions.code}): ${error.message}`
-					)
-				);
-			} else {
-				console.error(
-					chalk.red.bold(`✖ GraphQL Error: ${error.message}`)
-				);
-			}
-			return;
-		}
+    const response = await axios.post(
+      "https://gql.hashnode.com/",
+      {
+        query: query,
+        variables: {
+          input: publishPostInput,
+        },
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
 
-		if (response.data.data?.publishPost?.post) {
-			console.log(
-				chalk.green.bold(
-					`✓ Post published successfully at: ${chalk.underline(
-						response.data.data.publishPost.post.url
-					)}`
-				)
-			);
+    if (response.data.errors) {
+      const error = response.data.errors[0];
+      if (error.extensions) {
+        console.error(
+          chalk.red.bold(
+            `✖ GraphQL Error (${error.extensions.code}): ${error.message}`
+          )
+        );
+      } else {
+        console.error(chalk.red.bold(`✖ GraphQL Error: ${error.message}`));
+      }
+      return;
+    }
 
-			return publishPostInput;
-		} else {
-			console.warn(
-				chalk.yellow(
-					"⚠ Post published but received unexpected response format:"
-				),
-				response.data
-			);
-		}
-	} catch (error) {
-		console.error(
-			chalk.red.bold("✖ Error publishing content:"),
-			chalk.red(error)
-		);
-	}
+    if (response.data.data?.publishPost?.post) {
+      console.log(
+        chalk.green.bold(
+          `✓ Post published successfully at: ${chalk.underline(
+            response.data.data.publishPost.post.url
+          )}`
+        )
+      );
+
+      return publishPostInput;
+    } else {
+      console.warn(
+        chalk.yellow(
+          "⚠ Post published but received unexpected response format:"
+        ),
+        response.data
+      );
+    }
+  } catch (error) {
+    console.error(
+      chalk.red.bold("✖ Error publishing content:"),
+      chalk.red(error)
+    );
+  }
 }
 
 export { publishContent };
