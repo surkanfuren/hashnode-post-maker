@@ -92,7 +92,7 @@ async function publishContent() {
         )
       );
 
-      return publishPostInput;
+      return { publishPostInput: publishPostInput, artist: artist };
     } else {
       console.warn(
         chalk.yellow(

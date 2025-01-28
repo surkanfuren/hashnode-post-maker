@@ -13,7 +13,6 @@ async function searchImage(query) {
     c2coff: "1",
     cx: CX,
     fileType: "JPEG,PNG",
-    imgType: "photo",
     q: query,
     safe: "off",
     searchType: "image",
