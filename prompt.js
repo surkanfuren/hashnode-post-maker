@@ -19,7 +19,7 @@ Using the provided artwork details (Artwork, Artist, Medium, and Dimensions), cr
 - The artwork field should contain the provided artwork name.
 - The artworkSlug should be a URL-friendly version of the artwork name (lowercase, hyphens instead of spaces, English characters only).
 - The contentMarkdown must present the article in Markdown format, using headers (### for subsections instead of ##), lists, and emphasis to enhance readability. Do not include any links in the content. Do not include the title again in the contentMarkdown.
-- The medium and dimensions should be the first two lines of the content, each on their own line, formatted with both bold and italic using markdown: **_medium details_** and **_dimension details_**
+- The medium and dimensions should be the first two lines of the content, each on their own line, formatted with italic using markdown: _medium details_ and _dimension details_
 - Following the medium and dimensions, include an entrance paragraph of 50 words maximum, which should never exceed this limit.
 - Ensure the content is factual, engaging, and appeals to art lovers.
 
@@ -32,8 +32,8 @@ Example Output:
   "artistSlug": "vincent-van-gogh",
   "artwork": "The Starry Night",
   "artworkSlug": "the-starry-night",
-  "contentMarkdown": "**_Oil on canvas_**
-**_73.7 cm × 92.1 cm_**
+  "contentMarkdown": "_Oil on canvas_
+_73.7 × 92.1 cm_
 
 Created during his stay at the Saint-Paul-de-Mausole asylum, Van Gogh's masterpiece captures the artist's unique vision of a night sky. Through swirling brushstrokes and vibrant colors, he transformed a simple view into an immortal work of art.
 

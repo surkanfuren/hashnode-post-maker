@@ -29,7 +29,7 @@ async function generateContent() {
           content: `Artwork: ${artwork.Title}
 Artist: ${artwork.Artist[0]}
 Medium: ${artwork.Medium}
-Dimensions: ${height.toFixed(1)} cm x ${width.toFixed(1)} cm`,
+Dimensions: ${height.toFixed(1)} x ${width.toFixed(1)} cm`,
         },
       ],
     });
@@ -37,6 +37,7 @@ Dimensions: ${height.toFixed(1)} cm x ${width.toFixed(1)} cm`,
     const post = JSON.parse(completion.choices[0].message.content);
     if (post) {
       console.log(chalk.green.bold("✓ Content generated successfully"));
+      console.log(post);
     }
     const query = `${artwork.Title} by ${artwork.Artist[0]}`;
     const image = await searchImage(query);
