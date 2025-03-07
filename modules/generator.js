@@ -3,14 +3,14 @@ import dotenv from "dotenv";
 import chalk from "chalk";
 import system_prompt from "../prompt.js";
 import { searchImage } from "./image-search.js";
-import { getRandomArtwork } from "./data.js";
+import { getMonetArtwork, getRandomArtwork } from "./data.js";
 
 dotenv.config();
 const openai = new OpenAI();
 
 async function generateContent() {
   try {
-    const artwork = await getRandomArtwork();
+    const artwork = await getMonetArtwork();
 
     const height = artwork["Height (cm)"];
     const width = artwork["Width (cm)"];

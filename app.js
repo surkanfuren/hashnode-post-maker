@@ -2,7 +2,9 @@ import chalk from "chalk";
 import admin from "firebase-admin";
 import { publishContent } from "./modules/publisher.js";
 import { getMessaging } from "firebase-admin/messaging";
-import serviceAccount from "./firebase/findart-f05cf-firebase-adminsdk-nwwof-63e6d299c4.json" assert { type: "json" };
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const serviceAccount = require('./firebase/findart-f05cf-firebase-adminsdk-nwwof-63e6d299c4.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -58,7 +60,7 @@ async function publishAndNotify() {
     const { publishPostInput, artist } = await publishContent();
     await sendPushNotification(
       "Art of the Day",
-      `${publishPostInput.title} by ${artist}`,
+      `${publishPostInput.title}`,
       publishPostInput.coverImageOptions.coverImageURL
     );
   } catch (error) {
